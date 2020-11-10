@@ -1,0 +1,27 @@
+{% extends 'seller_header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div class="row">
+	{% for b in books %}
+		<div id="box" class="col-sm-3">
+			<div class="container">
+		  		<div class="card" style="width:250px">
+		    		<img class="card-img-top" src="{{b.book_image.url}}" alt="Card image" width=200px height=200px>
+		    			<div class="card-body">
+		      				<h4 class="card-title">{{b.book_name}}</h4>
+		      				<p class="card-text">Price : {{b.book_price}}</p>
+		      				<a href="{% url 'book_detail' pk=b.pk %}">More Detail</a>
+		    			</div>
+		  		</div>	  
+			</div>
+		</div> 
+	{% endfor %}
+</div>
+</body>
+</html>
+{% endblock %}

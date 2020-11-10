@@ -1,0 +1,50 @@
+{% extends 'header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		tr,td{
+			padding: 10px;
+		}
+		fieldset {
+  background-color: #eeeeee;
+}
+legend {
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+}
+
+input {
+  margin: 5px;
+}
+	</style>
+</head>
+<body>
+<center>
+<h1>Enter Email</h1>
+{% if msg %}
+	{{msg}}
+{% endif %}
+<form name="enter_email" method="post" action="{% url 'forgot_password' %}">
+	{% csrf_token %}
+	<fieldset>
+	<table>
+		<tr>
+			<td>Email</td>
+			<td><input type="text" name="email" required="required"></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="submit" name="submit" value="Send OTP" class="btn btn-primary">
+			</td>
+		</tr>
+	</table>
+</fieldset>
+</form>
+</center>
+</body>
+</html>
+{% endblock %}

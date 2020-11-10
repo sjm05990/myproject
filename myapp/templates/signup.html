@@ -1,0 +1,114 @@
+{% extends 'header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		tr,td{
+			padding: 10px;
+		}
+		fieldset {
+  background-color: #eeeeee;
+}
+legend {
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+}
+
+input {
+  margin: 5px;
+}
+	</style>
+
+{% block javascript %}
+    <script type="text/javascript">
+        $("#id_username").change(function () {
+          var username = $(this).val();
+          $.ajax({
+            type: 'POST',
+            url: {% url "validate_username" %},
+            data: {
+              'username': username
+            },
+            dataType: 'json',
+            success: function (data) {
+              if (data.is_taken) {
+                document.getElementById("email").innerHTML="Email Already Registered"
+              }
+              else{
+                document.getElementById("email").innerHTML="Email Available"
+              }
+            }
+          });
+
+        });
+      </script>
+{% endblock %}
+</head>
+<body>
+<center>
+<h1>Sign Up</h1>
+{% if msg %}
+	{{msg}}
+{% endif %}
+<form name="signup" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+	{% csrf_token %}
+	<fieldset>
+	<table>
+
+		<tr>
+			<td>User Type</td>
+			<td>
+				<input type="radio" name="usertype" value="user" checked="checked">User
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="usertype" value="seller">Seller
+			</td>
+		</tr>
+		<tr>
+			<td>First Name</td>
+			<td><input type="text" name="fname" required="required" value="{{f}}"></td>
+		</tr>
+
+		<tr>
+			<td>Last Name</td>
+			<td><input type="text" name="lname" required="required" value="{{l}}"></td>
+		</tr>
+
+		<tr>
+			<td>Email</td>
+			<td><input type="text" name="email" id="id_username" required="required"></td>
+			<td><span id="email"></span></td>
+		</tr>
+
+		<tr>
+			<td>Mobile</td>
+			<td><input type="text" name="mobile" required="required"></td>
+		</tr>
+
+		<tr>
+			<td>Password</td>
+			<td><input type="password" name="password" required="required"></td>
+		</tr>
+
+		<tr>
+			<td>Confirm Password</td>
+			<td><input type="password" name="cpassword" required="required"></td>
+		</tr>
+		<tr>
+			<td>User Image</td>
+			<td><input type="file" name="user_image"></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="submit" name="submit" value="Sign Up" class="btn btn-primary">
+			</td>
+		</tr>
+	</table>
+</fieldset>
+</form>
+</center>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'seller_header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		tr,td{
+			padding: 10px;
+		}
+		fieldset {
+  background-color: #eeeeee;
+}
+legend {
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+}
+
+input {
+  margin: 5px;
+}
+	</style>
+</head>
+<body>
+	<center>
+		<h1>Add Book</h1>		
+	
+	{% if msg %}
+	{{msg}}
+{% endif %}
+<form name="add_book" method="post" action="{% url 'add_book' %}" enctype="multipart/form-data">
+	{% csrf_token %}
+	<table>
+		<tr>
+			<td>Book Category</td>
+			<td>
+				<select name="book_category">
+					<option>---Select Book Category---</option>
+					<option value="python">Python</option>
+					<option value="java">Java</option>
+					<option value="php">PHP</option>
+					<option value="C">C</option>
+				</select>
+			</td>
+			<tr>
+				<td>Book Name</td>
+				<td><input type="text" name="book_name"></td>
+			</tr>
+			<tr>
+				<td>Book Price</td>
+				<td><input type="text" name="book_price"></td>
+			</tr>
+			<tr>
+				<td>Book Author</td>
+				<td><input type="text" name="book_author"></td>
+			</tr>
+			<tr>
+				<td>Book Quantity</td>
+				<td><input type="text" name="book_qty"></td>
+			</tr>
+			<tr>
+				<td>Book Description</td>
+				<td><textarea rows="5" cols="22" name="book_desc"></textarea></td>
+			</tr>
+			<tr>
+				<td>Book Image</td>
+				<td><input type="file" name="book_image"></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" name="submit" value="Add Book">
+				</td>
+			</tr>
+		</tr>
+	</table>
+</form>
+</center>
+</body>
+</html>
+{% endblock %}

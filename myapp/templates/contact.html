@@ -1,0 +1,75 @@
+{% extends 'header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		tr,td{
+			padding: 10px;
+		}
+		fieldset {
+  background-color: #eeeeee;
+}
+legend {
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+}
+
+input {
+  margin: 5px;
+}
+	</style>
+</head>
+<body>
+<center>
+<h1>Contact Us</h1>
+{% if msg %}
+	{{msg}}
+{% endif %}
+<form name="contact" method="post" action="{% url 'contact' %}">
+	{% csrf_token %}
+	<fieldset>
+	<table>
+		<tr>
+			<td>Name</td>
+			<td><input type="text" name="name" required="required"></td>
+		</tr>
+
+		<tr>
+			<td>Email</td>
+			<td><input type="text" name="email" required="required"></td>
+		</tr>
+
+		<tr>
+			<td>Mobile</td>
+			<td><input type="text" name="mobile" required="required"></td>
+		</tr>
+
+		<tr>
+			<td>Feedback</td>
+			<td><textarea rows="5" cols="22" name="feedback"></textarea></td>
+		</tr>
+
+		<tr>
+			<td colspan="2" align="center">
+				<input type="submit" name="submit" value="Submit" class="btn btn-primary">
+			</td>
+		</tr>
+	</table>
+</fieldset>
+</form>
+</center>
+<hr>
+<h2 style="background-color: lightgray;"><center>Recent Feedbacks</center></h2>
+<hr>
+{% for i in contacts %}
+	
+	<b>Name</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{i.name}}<br>
+	<b>Feedback</b> : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{i.feedback}}
+	<hr>
+{% endfor %}
+</body>
+</html>
+{% endblock %}
